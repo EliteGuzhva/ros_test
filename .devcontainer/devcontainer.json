@@ -1,0 +1,26 @@
+{
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
+    "extensions": [
+        "ms-vscode.cpptools", "ms-vscode.cmake-tools",
+        "ms-python.python", "ms-python.vscode-pylance",
+        "llvm-vs-code-extensions.vscode-clangd"
+    ],
+    "settings": {
+        "clangd.arguments": [
+            "--compile-commands-dir=build"
+        ]
+    },
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}"
+    },
+    "remoteUser": "ros",
+    "mounts": [
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind"
+    ],
+    "runArgs": [
+        "--net=host"
+    ]
+}
