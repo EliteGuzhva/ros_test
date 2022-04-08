@@ -1,24 +1,38 @@
 #include <ros/init.h>
+#include "ros/node_handle.h"
+#include "ros/service_server.h"
 
 #include <ros_test/coordwarehouse.h>
 #include <ros_test/turtle.h>
 
+#include "ros_test/csv.h"
+
 using namespace rt;
 
+struct ServiceCallback {
+    ros::NodeHandle& node;
+
+    bool callback(ros_test::csv::Request& request, ros_test::csv::Response& response) {
+        auto cwh = CoordWarehouse::fromCSV(request.filename);
+        const auto& coords = cwh.getCoords();
+        response.num = coords.size();
+
+        Turtle turtle(node);
+        for (const auto &coord : coords)
+            turtle.goTo(coord);
+
+        return true;
+    }
+};
+
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "turtlesim_commander");
+  ros::init(argc, argv, "turtlesim_csv");
   ros::NodeHandle node;
 
-  if (argc != 2) {
-    ROS_ERROR("Provide a path to .csv file with coordinates\n");
-    return 1;
-  }
+  ServiceCallback sc {node};
+  ros::ServiceServer service = node.advertiseService("turtlesim_csv", &ServiceCallback::callback, &sc);
 
-  auto cwh = CoordWarehouse::fromCSV(argv[1]);
-
-  Turtle turtle(node);
-  for (const auto &coord : cwh.getCoords())
-    turtle.goTo(coord);
+  ros::spin();
 
   return 0;
 }
