@@ -10,7 +10,7 @@
     ],
     "settings": {
         "clangd.arguments": [
-            "--compile-commands-dir=build"
+            "--compile-commands-dir=/home/ros/catkin_ws/build"
         ]
     },
     "containerEnv": {
@@ -20,6 +20,8 @@
     "mounts": [
         "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind"
     ],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ros/catkin_ws/src/ros_test,type=bind,consistency=cached",
+    "workspaceFolder": "/home/ros/catkin_ws/src/ros_test",
     "runArgs": [
         "--net=host"
     ]

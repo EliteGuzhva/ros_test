@@ -14,7 +14,10 @@ roscore
 ./turtlesim.sh
 ```
 
-3. In a third shell run main.py
+3. In a third shell run main program
 ```shell
-python3 main.py
+cd ~/catkin_ws
+catkin_make
+source devel/setup.sh
+rosrun ros_test main
 ```

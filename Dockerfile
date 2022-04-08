@@ -28,4 +28,10 @@ USER ${USERNAME}
 
 RUN echo ". /opt/ros/melodic/setup.sh" >> ~/.bashrc
 
+RUN mkdir ~/catkin_ws && \
+    cd ~/catkin_ws && \
+    mkdir src && \
+    . /opt/ros/melodic/setup.sh && \
+    catkin_init_workspace src
+
 CMD [ "bash" ]
