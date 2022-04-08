@@ -19,5 +19,5 @@ roscore
 cd ~/catkin_ws
 catkin_make
 source devel/setup.sh
-rosrun ros_test main
+rosrun ros_test main src/ros_test/input/example.csv
 ```

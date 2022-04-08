@@ -13,7 +13,12 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(${PROJECT_NAME}_main src/main.cpp)
+add_executable(${PROJECT_NAME}_main
+  src/main.cpp
+  src/point.cpp
+  src/turtle.cpp
+  src/coordwarehouse.cpp
+)
 set_target_properties(${PROJECT_NAME}_main PROPERTIES OUTPUT_NAME main PREFIX "")
 target_link_libraries(${PROJECT_NAME}_main
   ${catkin_LIBRARIES}
